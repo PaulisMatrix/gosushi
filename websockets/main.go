@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
@@ -12,30 +13,42 @@ var upgrader = websocket.Upgrader{
 	WriteBufferSize: 1024,
 }
 
-func main() {
-	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
-		conn, _ := upgrader.Upgrade(w, r, nil)
+func home(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "websockets.html")
+}
 
-		for {
-			// Read message from browser
-			msgType, msg, err := conn.ReadMessage()
-			if err != nil {
-				return
-			}
+func echo(w http.ResponseWriter, r *http.Request) {
 
-			// Print the message to the console
-			fmt.Printf("%s sent: %s\n", conn.RemoteAddr(), string(msg))
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Print("Http connection upgrade to websockets failed:", err)
+	}
+	defer conn.Close()
 
-			// Write message back to browser
-			if err = conn.WriteMessage(msgType, msg); err != nil {
-				return
-			}
+	for {
+
+		//Read the message from the browser
+		msgType, msg, err := conn.ReadMessage()
+		if err != nil {
+			log.Print("Unable to read the message")
+			return
 		}
-	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "websockets.html")
-	})
+		//Print the message to console
+		fmt.Printf("%s sent: %s\n", conn.RemoteAddr(), string(msg))
 
-	http.ListenAndServe(":8080", nil)
+		//Write the message back to the browser
+		if err := conn.WriteMessage(msgType, msg); err != nil {
+			log.Print("Unable to write back message")
+
+		}
+
+	}
+
+}
+func main() {
+	http.HandleFunc("/echo", echo)
+	http.HandleFunc("/", home)
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
