@@ -1,4 +1,4 @@
-package main
+package websockets
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ var upgrader = websocket.Upgrader{
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "websockets.html")
+	http.ServeFile(w, r, "./websockets/websockets.html")
 }
 
 func echo(w http.ResponseWriter, r *http.Request) {
@@ -46,7 +46,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-func main() {
+func RunSocket() {
 	http.HandleFunc("/echo", echo)
 	http.HandleFunc("/", home)
 

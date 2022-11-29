@@ -1,4 +1,4 @@
-package main
+package snippets
 
 import (
 	"io"
@@ -33,7 +33,7 @@ func pinger(url string) {
 
 }
 
-func main() {
+func MakePing() {
 
 	// ping an url(not recommended tho :p)
 	url := "https://www.google.com"

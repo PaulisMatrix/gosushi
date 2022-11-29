@@ -1,4 +1,4 @@
-module github.com/paulismatrix/websockets
+module practice
 
 go 1.18
 

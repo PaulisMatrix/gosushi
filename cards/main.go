@@ -1,10 +1,10 @@
-package main
+package cards
 
 import (
-	mydeck "github.com/paulismatrix/cards/deck"
+	mydeck "practice/cards/deck"
 )
 
-func main() {
+func Cards() {
 	cards := mydeck.NewDeck()
 
 	/*

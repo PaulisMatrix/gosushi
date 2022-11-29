@@ -1,4 +1,4 @@
-package main
+package snippets
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func main() {
 
 */
 
-func main() {
+func Concurrency() {
 	num_jobs := 10
 	jobs := make(chan int, num_jobs)
 	results := make(chan int, num_jobs)
