@@ -1,21 +1,16 @@
 package main
 
 import (
-	"fmt"
+	aoc "practice/adventofcode/day1"
 	//snippets "practice/snippets"
 	//websockets "practice/websockets"
-	cards "practice/cards"
+	//cards "practice/cards"
 )
 
 func main() {
-
-	//fmt.Println("Running concurrency example:")
-	//snippets.Concurrency()
-
-	//fmt.Println("Running websockets example:")
-	//websockets.RunSocket()
-
-	fmt.Println("Running cards example:")
-	cards.Cards()
+	// advent of code challenges.
+	//aoc.FirstPart()
+	numelfs := 3
+	aoc.SecondPart(numelfs)
 
 }
