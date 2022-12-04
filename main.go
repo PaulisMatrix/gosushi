@@ -1,7 +1,7 @@
 package main
 
 import (
-	aoc "practice/adventofcode/day3"
+	aoc "practice/adventofcode/day4"
 	//snippets "practice/snippets"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
