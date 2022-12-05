@@ -1,8 +1,8 @@
 package main
 
 import (
-	aoc "practice/adventofcode/day4"
-	//snippets "practice/snippets"
+	//"fmt"
+	aoc "practice/adventofcode/day5"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
 )
@@ -28,6 +28,7 @@ func main() {
 
 		diff.Display()
 	*/
+
 	aoc.SecondPart()
 
 }
