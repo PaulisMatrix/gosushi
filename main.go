@@ -2,7 +2,7 @@ package main
 
 import (
 	//"fmt"
-	aoc "practice/adventofcode/day5"
+	aoc "practice/adventofcode/day6"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
 )
