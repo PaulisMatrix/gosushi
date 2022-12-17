@@ -2,9 +2,10 @@ package main
 
 import (
 	//"fmt"
-	aoc "practice/adventofcode/day10"
+	//aoc "practice/adventofcode/day10"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
+	webhooks "practice/webhooks"
 )
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 		diff.Display()
 	*/
 
-	aoc.SecondPart()
+	//aoc.SecondPart()
+	webhooks.Webhooks()
 
 }
