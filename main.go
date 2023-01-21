@@ -5,7 +5,7 @@ import (
 	//aoc "practice/adventofcode/day10"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
-	webhooks "practice/webhooks"
+	sc "practice/story_colab"
 )
 
 func main() {
@@ -31,6 +31,6 @@ func main() {
 	*/
 
 	//aoc.SecondPart()
-	webhooks.Webhooks()
+	sc.StoryColab()
 
 }
