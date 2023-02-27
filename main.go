@@ -1,12 +1,21 @@
 package main
 
 import (
-	//"fmt"
+	"log"
+	"net"
+
+	pb "practice/grpc/hello_world"
+
+	"google.golang.org/grpc"
+
 	//aoc "practice/adventofcode/day10"
 	//websockets "practice/websockets"
 	//cards "practice/cards"
-	sc "practice/story_colab"
+	//sc "practice/story_colab"
+	server "practice/grpc/server"
 )
+
+const address string = ":4772"
 
 func main() {
 
@@ -31,6 +40,22 @@ func main() {
 	*/
 
 	//aoc.SecondPart()
-	sc.StoryColab()
+	//sc.StoryColab()
+	log.Println("Starting the server!")
+
+	lis, err := net.Listen("tcp", address)
+	if err != nil {
+		log.Fatal("Failed to Listen on", err)
+	}
+	log.Println("Listening on", address)
+
+	grpcServer := grpc.NewServer()
+
+	//register your server
+	pb.RegisterGreeterServer(grpcServer, &server.HelloServer{})
+
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 
 }
