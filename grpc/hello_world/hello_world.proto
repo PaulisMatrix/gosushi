@@ -7,6 +7,8 @@ package hello_world;
 service Greeter {
     // Sends a greeting
     rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc SayHelloSpecific (RepeatedHelloRequest) returns (HelloReply) {}
+    
   }
   
   // The request message containing the user's name.
@@ -19,3 +21,6 @@ service Greeter {
     string message = 1;
   }
   
+  message RepeatedHelloRequest{
+    repeated string names = 1;
+  }

@@ -25,7 +25,10 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: "rushikesh"})
+
+	//r, err := c.SayHello(ctx, &pb.HelloRequest{Name: "rushikesh"})
+	names := []string{"albin", "nithya", "rushikesh"}
+	r, err := c.SayHelloSpecific(ctx, &pb.RepeatedHelloRequest{Names: names})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
