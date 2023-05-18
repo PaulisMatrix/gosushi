@@ -29,7 +29,7 @@ func StoryColab() {
 	conn_str := config.GetConfig().MongoURI
 	Connect(conn_str)
 
-	fmt.Println("Starting the server!!")
+	fmt.Println("Starting the server!!!")
 	s := &http.Server{
 		Addr:         ":8080",
 		Handler:      mux,

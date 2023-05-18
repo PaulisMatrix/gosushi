@@ -1,0 +1,15 @@
+version: '3'
+
+tasks:
+  go-runs:
+    cmds:
+      - go build -o main
+      - ./main
+    sources:
+      - ./*.go
+      - ./*/*.go
+      - ./*/*/*.go
+      - ./*/*/*/*.go
+    generates:
+      - main
+    method: timestamp
