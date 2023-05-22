@@ -6,10 +6,7 @@ tasks:
       - go build -o main
       - ./main
     sources:
-      - ./*.go
-      - ./*/*.go
-      - ./*/*/*.go
-      - ./*/*/*/*.go
+      - '**/*.go'
     generates:
       - main
     method: timestamp
