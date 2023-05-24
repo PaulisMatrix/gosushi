@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.5.1
+	github.com/radovskyb/watcher v1.0.7
 	go.mongodb.org/mongo-driver v1.11.2
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1

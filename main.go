@@ -12,8 +12,11 @@ import (
 	//websockets "practice/websockets"
 	//cards "practice/cards"
 
-	sc "practice/story_colab"
+	//sc "practice/story_colab"
 	//server "practice/grpc/server"
+
+	"fmt"
+	watcher "practice/snippets"
 )
 
 //const address string = ":4772"
@@ -56,6 +59,8 @@ func main() {
 			log.Fatalf("failed to serve: %v", err)
 		}
 	*/
-	sc.StoryColab()
+	//sc.StoryColab()
+	fmt.Println("Started watching in current directory!!")
+	watcher.Watch()
 
 }
