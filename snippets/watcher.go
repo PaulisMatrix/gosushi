@@ -25,7 +25,7 @@ func Watch() {
 		for {
 			select {
 			case event := <-w.Event:
-				fmt.Printf("Event %v info\n", event)
+				fmt.Printf("\nSnippets: Event %v info\n", event)
 			case err := <-w.Error:
 				log.Fatalln(err)
 			case <-w.Closed:
@@ -35,7 +35,7 @@ func Watch() {
 	}()
 
 	// Watch this folder for changes.
-	if err := w.Add("./snippets"); err != nil {
+	if err := w.Add("./snippets/gowatcher/"); err != nil {
 		log.Fatalln(err)
 	}
 
@@ -45,8 +45,6 @@ func Watch() {
 	for path, f := range w.WatchedFiles() {
 		fmt.Printf("%s: %s\n", path, f.Name())
 	}
-
-	fmt.Println()
 
 	// Trigger 2 events after watcher started.
 	//go func() {
