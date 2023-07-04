@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option go_package = "twirp/ratelimit";
+package ratelimit;
+
+//generate by running:  protoc --go_out=. --twirp_out=. ./twirp/ratelimit/ratelimit.proto 
+service Ratelimit {
+    rpc GetRatelimitInfo(GetRatelimitRequest) returns (GetRatelimitResponse){}
+    rpc SetRatelimitInfo(SetRatelimitRequest) returns (SetRatelimitResponse){}
+
+  }
+
+message GetRatelimitRequest {
+    string clientID = 1;
+  }
+
+message GetRatelimitResponse{
+  repeated RouterMap routerMap = 1;  
+}
+
+message SetRatelimitRequest{
+    string clientID = 1;
+    repeated RouterMap routerMap = 2;
+}
+
+message SetRatelimitResponse{
+
+}
+
+message RouterMap {
+  string endpoint = 1;
+  int32 rate = 2;
+}
+
+
