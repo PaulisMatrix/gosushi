@@ -20,18 +20,122 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type RouterMap_APIEndpoint int32
+
+const (
+	RouterMap_UNKNOWN RouterMap_APIEndpoint = 0
+	RouterMap_PING    RouterMap_APIEndpoint = 1
+	RouterMap_PONG    RouterMap_APIEndpoint = 2
+)
+
+// Enum value maps for RouterMap_APIEndpoint.
+var (
+	RouterMap_APIEndpoint_name = map[int32]string{
+		0: "UNKNOWN",
+		1: "PING",
+		2: "PONG",
+	}
+	RouterMap_APIEndpoint_value = map[string]int32{
+		"UNKNOWN": 0,
+		"PING":    1,
+		"PONG":    2,
+	}
+)
+
+func (x RouterMap_APIEndpoint) Enum() *RouterMap_APIEndpoint {
+	p := new(RouterMap_APIEndpoint)
+	*p = x
+	return p
+}
+
+func (x RouterMap_APIEndpoint) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (RouterMap_APIEndpoint) Descriptor() protoreflect.EnumDescriptor {
+	return file_twirp_ratelimit_ratelimit_proto_enumTypes[0].Descriptor()
+}
+
+func (RouterMap_APIEndpoint) Type() protoreflect.EnumType {
+	return &file_twirp_ratelimit_ratelimit_proto_enumTypes[0]
+}
+
+func (x RouterMap_APIEndpoint) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use RouterMap_APIEndpoint.Descriptor instead.
+func (RouterMap_APIEndpoint) EnumDescriptor() ([]byte, []int) {
+	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{0, 0}
+}
+
+type RouterMap struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Endpoint RouterMap_APIEndpoint `protobuf:"varint,1,opt,name=Endpoint,proto3,enum=ratelimit.RouterMap_APIEndpoint" json:"Endpoint,omitempty"`
+	Rate     int32                 `protobuf:"varint,2,opt,name=Rate,proto3" json:"Rate,omitempty"`
+}
+
+func (x *RouterMap) Reset() {
+	*x = RouterMap{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RouterMap) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RouterMap) ProtoMessage() {}
+
+func (x *RouterMap) ProtoReflect() protoreflect.Message {
+	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RouterMap.ProtoReflect.Descriptor instead.
+func (*RouterMap) Descriptor() ([]byte, []int) {
+	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RouterMap) GetEndpoint() RouterMap_APIEndpoint {
+	if x != nil {
+		return x.Endpoint
+	}
+	return RouterMap_UNKNOWN
+}
+
+func (x *RouterMap) GetRate() int32 {
+	if x != nil {
+		return x.Rate
+	}
+	return 0
+}
+
 type GetRatelimitRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ClientID string `protobuf:"bytes,1,opt,name=clientID,proto3" json:"clientID,omitempty"`
+	ClientID string `protobuf:"bytes,1,opt,name=ClientID,proto3" json:"ClientID,omitempty"`
 }
 
 func (x *GetRatelimitRequest) Reset() {
 	*x = GetRatelimitRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[0]
+		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -44,7 +148,7 @@ func (x *GetRatelimitRequest) String() string {
 func (*GetRatelimitRequest) ProtoMessage() {}
 
 func (x *GetRatelimitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[0]
+	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +161,7 @@ func (x *GetRatelimitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRatelimitRequest.ProtoReflect.Descriptor instead.
 func (*GetRatelimitRequest) Descriptor() ([]byte, []int) {
-	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{0}
+	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetRatelimitRequest) GetClientID() string {
@@ -72,13 +176,13 @@ type GetRatelimitResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	RouterMap []*RouterMap `protobuf:"bytes,1,rep,name=routerMap,proto3" json:"routerMap,omitempty"`
+	RouterMap []*RouterMap `protobuf:"bytes,1,rep,name=RouterMap,proto3" json:"RouterMap,omitempty"`
 }
 
 func (x *GetRatelimitResponse) Reset() {
 	*x = GetRatelimitResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[1]
+		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -91,7 +195,7 @@ func (x *GetRatelimitResponse) String() string {
 func (*GetRatelimitResponse) ProtoMessage() {}
 
 func (x *GetRatelimitResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[1]
+	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -104,7 +208,7 @@ func (x *GetRatelimitResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRatelimitResponse.ProtoReflect.Descriptor instead.
 func (*GetRatelimitResponse) Descriptor() ([]byte, []int) {
-	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{1}
+	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetRatelimitResponse) GetRouterMap() []*RouterMap {
@@ -119,14 +223,14 @@ type SetRatelimitRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ClientID  string       `protobuf:"bytes,1,opt,name=clientID,proto3" json:"clientID,omitempty"`
-	RouterMap []*RouterMap `protobuf:"bytes,2,rep,name=routerMap,proto3" json:"routerMap,omitempty"`
+	ClientID  string       `protobuf:"bytes,1,opt,name=ClientID,proto3" json:"ClientID,omitempty"`
+	RouterMap []*RouterMap `protobuf:"bytes,2,rep,name=RouterMap,proto3" json:"RouterMap,omitempty"`
 }
 
 func (x *SetRatelimitRequest) Reset() {
 	*x = SetRatelimitRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[2]
+		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -139,7 +243,7 @@ func (x *SetRatelimitRequest) String() string {
 func (*SetRatelimitRequest) ProtoMessage() {}
 
 func (x *SetRatelimitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[2]
+	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -152,7 +256,7 @@ func (x *SetRatelimitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetRatelimitRequest.ProtoReflect.Descriptor instead.
 func (*SetRatelimitRequest) Descriptor() ([]byte, []int) {
-	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{2}
+	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SetRatelimitRequest) GetClientID() string {
@@ -178,7 +282,7 @@ type SetRatelimitResponse struct {
 func (x *SetRatelimitResponse) Reset() {
 	*x = SetRatelimitResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[3]
+		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -191,7 +295,7 @@ func (x *SetRatelimitResponse) String() string {
 func (*SetRatelimitResponse) ProtoMessage() {}
 
 func (x *SetRatelimitResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[3]
+	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,62 +308,7 @@ func (x *SetRatelimitResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetRatelimitResponse.ProtoReflect.Descriptor instead.
 func (*SetRatelimitResponse) Descriptor() ([]byte, []int) {
-	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{3}
-}
-
-type RouterMap struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Endpoint string `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
-	Rate     int32  `protobuf:"varint,2,opt,name=rate,proto3" json:"rate,omitempty"`
-}
-
-func (x *RouterMap) Reset() {
-	*x = RouterMap{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RouterMap) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RouterMap) ProtoMessage() {}
-
-func (x *RouterMap) ProtoReflect() protoreflect.Message {
-	mi := &file_twirp_ratelimit_ratelimit_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RouterMap.ProtoReflect.Descriptor instead.
-func (*RouterMap) Descriptor() ([]byte, []int) {
 	return file_twirp_ratelimit_ratelimit_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *RouterMap) GetEndpoint() string {
-	if x != nil {
-		return x.Endpoint
-	}
-	return ""
-}
-
-func (x *RouterMap) GetRate() int32 {
-	if x != nil {
-		return x.Rate
-	}
-	return 0
 }
 
 var File_twirp_ratelimit_ratelimit_proto protoreflect.FileDescriptor
@@ -267,40 +316,46 @@ var File_twirp_ratelimit_ratelimit_proto protoreflect.FileDescriptor
 var file_twirp_ratelimit_ratelimit_proto_rawDesc = []byte{
 	0x0a, 0x1f, 0x74, 0x77, 0x69, 0x72, 0x70, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69,
 	0x74, 0x2f, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x12, 0x09, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0x31, 0x0a, 0x13,
+	0x6f, 0x12, 0x09, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0x8d, 0x01, 0x0a,
+	0x09, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x12, 0x3c, 0x0a, 0x08, 0x45, 0x6e,
+	0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x20, 0x2e, 0x72,
+	0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d,
+	0x61, 0x70, 0x2e, 0x41, 0x50, 0x49, 0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x52, 0x08,
+	0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x52, 0x61, 0x74, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x52, 0x61, 0x74, 0x65, 0x22, 0x2e, 0x0a, 0x0b,
+	0x41, 0x50, 0x49, 0x45, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x0b, 0x0a, 0x07, 0x55,
+	0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x50, 0x49, 0x4e, 0x47,
+	0x10, 0x01, 0x12, 0x08, 0x0a, 0x04, 0x50, 0x4f, 0x4e, 0x47, 0x10, 0x02, 0x22, 0x31, 0x0a, 0x13,
 	0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x22,
+	0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x22,
 	0x4a, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x09, 0x72, 0x6f, 0x75, 0x74, 0x65,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x09, 0x52, 0x6f, 0x75, 0x74, 0x65,
 	0x72, 0x4d, 0x61, 0x70, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x72, 0x61, 0x74,
 	0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70,
-	0x52, 0x09, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x22, 0x65, 0x0a, 0x13, 0x53,
+	0x52, 0x09, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x22, 0x65, 0x0a, 0x13, 0x53,
 	0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x12, 0x32,
-	0x0a, 0x09, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x12, 0x32,
+	0x0a, 0x09, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x18, 0x02, 0x20, 0x03, 0x28,
 	0x0b, 0x32, 0x14, 0x2e, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x52, 0x6f,
-	0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x52, 0x09, 0x72, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d,
+	0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x52, 0x09, 0x52, 0x6f, 0x75, 0x74, 0x65, 0x72, 0x4d,
 	0x61, 0x70, 0x22, 0x16, 0x0a, 0x14, 0x53, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d,
-	0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3b, 0x0a, 0x09, 0x52, 0x6f,
-	0x75, 0x74, 0x65, 0x72, 0x4d, 0x61, 0x70, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f,
-	0x69, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f,
-	0x69, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x04, 0x72, 0x61, 0x74, 0x65, 0x32, 0xb9, 0x01, 0x0a, 0x09, 0x52, 0x61, 0x74, 0x65,
-	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x55, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65,
-	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1e, 0x2e, 0x72, 0x61, 0x74, 0x65,
-	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d,
-	0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x72, 0x61, 0x74, 0x65,
-	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d,
-	0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x10,
-	0x53, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x49, 0x6e, 0x66, 0x6f,
-	0x12, 0x1e, 0x2e, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x53, 0x65, 0x74,
-	0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x1f, 0x2e, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x53, 0x65, 0x74,
-	0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x00, 0x42, 0x11, 0x5a, 0x0f, 0x74, 0x77, 0x69, 0x72, 0x70, 0x2f, 0x72, 0x61, 0x74,
-	0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xb9, 0x01, 0x0a, 0x09, 0x52,
+	0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x55, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x52,
+	0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1e, 0x2e, 0x72,
+	0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65,
+	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x72,
+	0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65,
+	0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x55, 0x0a, 0x10, 0x53, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x49,
+	0x6e, 0x66, 0x6f, 0x12, 0x1e, 0x2e, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e,
+	0x53, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x2e,
+	0x53, 0x65, 0x74, 0x52, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x11, 0x5a, 0x0f, 0x74, 0x77, 0x69, 0x72, 0x70, 0x2f,
+	0x72, 0x61, 0x74, 0x65, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -315,26 +370,29 @@ func file_twirp_ratelimit_ratelimit_proto_rawDescGZIP() []byte {
 	return file_twirp_ratelimit_ratelimit_proto_rawDescData
 }
 
+var file_twirp_ratelimit_ratelimit_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_twirp_ratelimit_ratelimit_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_twirp_ratelimit_ratelimit_proto_goTypes = []interface{}{
-	(*GetRatelimitRequest)(nil),  // 0: ratelimit.GetRatelimitRequest
-	(*GetRatelimitResponse)(nil), // 1: ratelimit.GetRatelimitResponse
-	(*SetRatelimitRequest)(nil),  // 2: ratelimit.SetRatelimitRequest
-	(*SetRatelimitResponse)(nil), // 3: ratelimit.SetRatelimitResponse
-	(*RouterMap)(nil),            // 4: ratelimit.RouterMap
+	(RouterMap_APIEndpoint)(0),   // 0: ratelimit.RouterMap.APIEndpoint
+	(*RouterMap)(nil),            // 1: ratelimit.RouterMap
+	(*GetRatelimitRequest)(nil),  // 2: ratelimit.GetRatelimitRequest
+	(*GetRatelimitResponse)(nil), // 3: ratelimit.GetRatelimitResponse
+	(*SetRatelimitRequest)(nil),  // 4: ratelimit.SetRatelimitRequest
+	(*SetRatelimitResponse)(nil), // 5: ratelimit.SetRatelimitResponse
 }
 var file_twirp_ratelimit_ratelimit_proto_depIdxs = []int32{
-	4, // 0: ratelimit.GetRatelimitResponse.routerMap:type_name -> ratelimit.RouterMap
-	4, // 1: ratelimit.SetRatelimitRequest.routerMap:type_name -> ratelimit.RouterMap
-	0, // 2: ratelimit.Ratelimit.GetRatelimitInfo:input_type -> ratelimit.GetRatelimitRequest
-	2, // 3: ratelimit.Ratelimit.SetRatelimitInfo:input_type -> ratelimit.SetRatelimitRequest
-	1, // 4: ratelimit.Ratelimit.GetRatelimitInfo:output_type -> ratelimit.GetRatelimitResponse
-	3, // 5: ratelimit.Ratelimit.SetRatelimitInfo:output_type -> ratelimit.SetRatelimitResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0, // 0: ratelimit.RouterMap.Endpoint:type_name -> ratelimit.RouterMap.APIEndpoint
+	1, // 1: ratelimit.GetRatelimitResponse.RouterMap:type_name -> ratelimit.RouterMap
+	1, // 2: ratelimit.SetRatelimitRequest.RouterMap:type_name -> ratelimit.RouterMap
+	2, // 3: ratelimit.Ratelimit.GetRatelimitInfo:input_type -> ratelimit.GetRatelimitRequest
+	4, // 4: ratelimit.Ratelimit.SetRatelimitInfo:input_type -> ratelimit.SetRatelimitRequest
+	3, // 5: ratelimit.Ratelimit.GetRatelimitInfo:output_type -> ratelimit.GetRatelimitResponse
+	5, // 6: ratelimit.Ratelimit.SetRatelimitInfo:output_type -> ratelimit.SetRatelimitResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_twirp_ratelimit_ratelimit_proto_init() }
@@ -344,7 +402,7 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_twirp_ratelimit_ratelimit_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRatelimitRequest); i {
+			switch v := v.(*RouterMap); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -356,7 +414,7 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 			}
 		}
 		file_twirp_ratelimit_ratelimit_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRatelimitResponse); i {
+			switch v := v.(*GetRatelimitRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -368,7 +426,7 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 			}
 		}
 		file_twirp_ratelimit_ratelimit_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetRatelimitRequest); i {
+			switch v := v.(*GetRatelimitResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -380,7 +438,7 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 			}
 		}
 		file_twirp_ratelimit_ratelimit_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetRatelimitResponse); i {
+			switch v := v.(*SetRatelimitRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -392,7 +450,7 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 			}
 		}
 		file_twirp_ratelimit_ratelimit_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RouterMap); i {
+			switch v := v.(*SetRatelimitResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -409,13 +467,14 @@ func file_twirp_ratelimit_ratelimit_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_twirp_ratelimit_ratelimit_proto_rawDesc,
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_twirp_ratelimit_ratelimit_proto_goTypes,
 		DependencyIndexes: file_twirp_ratelimit_ratelimit_proto_depIdxs,
+		EnumInfos:         file_twirp_ratelimit_ratelimit_proto_enumTypes,
 		MessageInfos:      file_twirp_ratelimit_ratelimit_proto_msgTypes,
 	}.Build()
 	File_twirp_ratelimit_ratelimit_proto = out.File

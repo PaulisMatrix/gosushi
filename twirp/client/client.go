@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	store "practice/twirp/store"
 
-	store "practice/twirp"
 	pb "practice/twirp/ratelimit"
 )
 
@@ -16,16 +16,18 @@ func main() {
 
 	setRequest := &pb.SetRatelimitRequest{
 		ClientID:  "sebmulti21",
-		RouterMap: store.ConvertToProto(store.GetRouterMap()),
+		RouterMap: store.MarshalMapToProto(store.RM),
 	}
 	_, err := client.SetRatelimitInfo(context.Background(), setRequest)
 
-	if err == nil {
-		fmt.Println("RouterMAP Updated: ")
-		for _, m := range store.RateLimitInfo.RouterMap {
-			fmt.Printf("Endpoint is %s and rate is %d\n", m.Endpoint, m.Rate)
-		}
-	} else {
-		fmt.Println("ERROR: ", err)
-	}
+	fmt.Println(err)
+
+	//if err == nil {
+	//	fmt.Println("RouterMAP Updated: ")
+	//	for _, m := range store.RateLimitInfo.RouterMap {
+	//		fmt.Printf("Endpoint is %s and rate is %d\n", m.Endpoint, m.Rate)
+	//	}
+	//} else {
+	//	fmt.Println("ERROR: ", err)
+	//}
 }

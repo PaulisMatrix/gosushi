@@ -10,26 +10,33 @@ service Ratelimit {
 
   }
 
+
+message RouterMap {
+  enum APIEndpoint{
+    UNKNOWN = 0;
+    PING = 1;
+    PONG = 2;
+  }
+  APIEndpoint Endpoint = 1;
+  int32 Rate = 2;
+}
+
 message GetRatelimitRequest {
-    string clientID = 1;
+    string ClientID = 1;
   }
 
 message GetRatelimitResponse{
-  repeated RouterMap routerMap = 1;  
+  repeated RouterMap RouterMap = 1;  
 }
 
 message SetRatelimitRequest{
-    string clientID = 1;
-    repeated RouterMap routerMap = 2;
+    string ClientID = 1;
+    repeated RouterMap RouterMap = 2;
 }
 
 message SetRatelimitResponse{
 
 }
 
-message RouterMap {
-  string endpoint = 1;
-  int32 rate = 2;
-}
 
 
