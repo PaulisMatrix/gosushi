@@ -54,7 +54,13 @@ func Watch() {
 	//}()
 
 	// Start the watching process - it'll check for changes every 100ms.
-	if err := w.Start(time.Millisecond * 100); err != nil {
+	if err := w.Start(2 * time.Second); err != nil {
 		log.Fatalln(err)
 	}
+
+	//task is watching for the files and not the directory.
+	//When you initially run is, it adds all the files matching the file pattern to the watcher.
+	//whenever some change is made to those files, it fires a WRITE event.
+	//on adding/removing a file, an event is not triggered since task is not watching the directory but just files and you just made changes to the directory
+	//Need to find a way to fire an event on subsequent additon/deletion of files.
 }

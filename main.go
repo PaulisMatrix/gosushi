@@ -1,23 +1,15 @@
 package main
 
-import (
-	//"log"
-	//"net"
-
-	//pb "practice/grpc/hello_world"
-
-	//"google.golang.org/grpc"
-
-	//aoc "practice/adventofcode/day10"
-	//websockets "practice/websockets"
-	//cards "practice/cards"
-
-	//sc "practice/story_colab"
-	//server "practice/grpc/server"
-
-	"fmt"
-	watcher "practice/snippets"
-)
+//"log"
+//"net"
+//pb "practice/grpc/hello_world"
+//"google.golang.org/grpc"
+//aoc "practice/adventofcode/day10"
+//websockets "practice/websockets"
+//cards "practice/cards"
+//sc "practice/story_colab"
+//server "practice/grpc/server"
+import watcher "practice/snippets"
 
 //const address string = ":4772"
 
@@ -60,7 +52,8 @@ func main() {
 		}
 	*/
 	//sc.StoryColab()
-	fmt.Println("Started watching in current directory!!")
+	//fmt.Println("Started watching in current directory!!")
 	watcher.Watch()
+	//snippets.Heapq()
 
 }
