@@ -1,5 +1,7 @@
 package main
 
+import "practice/tinycompiler"
+
 //"log"
 //"net"
 //pb "practice/grpc/hello_world"
@@ -9,7 +11,7 @@ package main
 //cards "practice/cards"
 //sc "practice/story_colab"
 //server "practice/grpc/server"
-import watcher "practice/snippets"
+//import watcher "practice/snippets"
 
 //const address string = ":4772"
 
@@ -51,9 +53,7 @@ func main() {
 			log.Fatalf("failed to serve: %v", err)
 		}
 	*/
-	//sc.StoryColab()
-	//fmt.Println("Started watching in current directory!!")
-	watcher.Watch()
-	//snippets.Heapq()
+
+	tinycompiler.StartHere()
 
 }
