@@ -43,6 +43,7 @@ var _ ParserIface = (*Parser)(nil)
 // parser is used to keep track of the current token and checks if the code matches the grammer.
 type Parser struct {
 	lexer     *Lexer
+	emitter   *Emitter
 	curToken  Token
 	peekToken Token
 
@@ -80,7 +81,8 @@ func (p *Parser) Abort(msg string) {
 }
 
 func (p *Parser) Program() {
-	fmt.Println("PROGRAM")
+	p.emitter.HeaderLine("#include <stdio.h>")
+	p.emitter.HeaderLine("int main(void){")
 
 	//skip newlines at the start of the program
 	for p.CheckToken(NEWLINE) {
@@ -91,6 +93,9 @@ func (p *Parser) Program() {
 	for !p.CheckToken(EOF) {
 		p.Statement()
 	}
+
+	p.emitter.EmitLine("return 0;")
+	p.emitter.EmitLine("}")
 
 	//check that each label gotoed has been declared or not
 	for _, gotos := range p.gotoDeclared {
@@ -112,21 +117,24 @@ func (p *Parser) Statement() {
 	//check the first token to see what kind of statement it is
 
 	if p.CheckToken(PRINT) { //"PRINT" (expression | string)
-		fmt.Println("STATEMENT-PRINT")
 		p.NextToken()
 
 		if p.CheckToken(STRING) {
 			//string
+			p.emitter.EmitLine("printf(\"" + p.curToken.tokenText + "\\n\");")
 			p.NextToken()
 		} else {
 			//expression
+			p.emitter.Emit("printf(\"%" + ".2f\\n\", (float)(")
 			p.Expression()
+			p.emitter.EmitLine("));")
 		}
 	} else if p.CheckToken(IF) { //"IF" comparison "THEN" nl {statement} "ENDIF"
-		fmt.Println("STATEMENT-IF")
 		p.NextToken()
+		p.emitter.Emit("if(")
 		p.Comparison()
 
+		p.emitter.EmitLine("){")
 		p.Match(THEN)
 		p.Nl()
 
@@ -135,11 +143,13 @@ func (p *Parser) Statement() {
 			p.Statement()
 		}
 		p.Match(ENDIF)
+		p.emitter.EmitLine("}")
 	} else if p.CheckToken(WHILE) { //"WHILE" comparison "REPEAT" nl {statement} "ENDWHILE"
-		fmt.Println("STATEMENT-WHILE")
 		p.NextToken()
+		p.emitter.Emit("while(")
 		p.Comparison()
 
+		p.emitter.EmitLine("){")
 		p.Match(REPEAT)
 		p.Nl()
 
@@ -147,9 +157,9 @@ func (p *Parser) Statement() {
 			//zero or more statements
 			p.Statement()
 		}
+		p.emitter.EmitLine("}")
 		p.Match(ENDWHILE)
 	} else if p.CheckToken(LABEL) { //"LABEL" ident
-		fmt.Println("STATEMENT-LABEL")
 		p.NextToken()
 		if p.CheckToken(IDENT) {
 			//if label found, record it
@@ -170,9 +180,9 @@ func (p *Parser) Statement() {
 			msg := fmt.Sprintf("expected identifier, got %s", p.curToken.tokenText)
 			p.Abort(msg)
 		}
+		p.emitter.EmitLine(p.curToken.tokenText + ":")
 		p.Match(IDENT)
 	} else if p.CheckToken(GOTO) { //"GOTO" ident
-		fmt.Println("STATEMENT-GOTO")
 		p.NextToken()
 		if p.CheckToken(IDENT) {
 			//record all gotos
@@ -181,9 +191,9 @@ func (p *Parser) Statement() {
 			msg := fmt.Sprintf("expected identifier, got %s", p.curToken.tokenText)
 			p.Abort(msg)
 		}
+		p.emitter.EmitLine("goto " + p.curToken.tokenText + ";")
 		p.Match(IDENT)
 	} else if p.CheckToken(LET) { //LET" ident "=" expression
-		fmt.Println("STATEMENT-LET")
 		p.NextToken()
 
 		if p.CheckToken(IDENT) {
@@ -192,21 +202,26 @@ func (p *Parser) Statement() {
 			for _, vars := range p.variables {
 				if p.curToken.tokenText == vars {
 					//if already exists, skip
+					//we are assigning some value to the variable
+					found = true
 					continue
 				}
 			}
 			if !found {
 				p.variables = append(p.variables, p.curToken.tokenText)
+				//declaring the variables the first time
+				p.emitter.HeaderLine("float " + p.curToken.tokenText + ";")
 			}
 		} else {
 			msg := fmt.Sprintf("expected identifier, got %s", p.curToken.tokenText)
 			p.Abort(msg)
 		}
+		p.emitter.Emit(p.curToken.tokenText + " = ")
 		p.Match(IDENT)
 		p.Match(EQ)
 		p.Expression()
+		p.emitter.EmitLine(";")
 	} else if p.CheckToken(INPUT) { //"INPUT" ident
-		fmt.Println("STATEMENT-INPUT")
 		p.NextToken()
 		if p.CheckToken(IDENT) {
 			//if identifier(var) found, record it
@@ -214,16 +229,26 @@ func (p *Parser) Statement() {
 			for _, vars := range p.variables {
 				if p.curToken.tokenText == vars {
 					//if already exists, skip
+					found = true
 					continue
 				}
 			}
 			if !found {
 				p.variables = append(p.variables, p.curToken.tokenText)
+				//declaring the variables the first time
+				p.emitter.HeaderLine("float " + p.curToken.tokenText + ";")
 			}
 		} else {
 			msg := fmt.Sprintf("expected identifier, got %s", p.curToken.tokenText)
 			p.Abort(msg)
 		}
+		// emit scanf but also validate the input since we are accepting only floats rn
+		// if invalid, set the variable to 0 and clear the input
+		p.emitter.EmitLine("if(scanf(\"%" + "f\", &" + p.curToken.tokenText + ") == 0) {")
+		p.emitter.EmitLine(p.curToken.tokenText + " = 0;")
+		p.emitter.Emit("scanf(\"%")
+		p.emitter.EmitLine("*s\");")
+		p.emitter.EmitLine("}")
 		p.Match(IDENT)
 	} else {
 		msg := fmt.Sprintf("invalid statement %s", p.curToken.tokenText)
@@ -234,8 +259,6 @@ func (p *Parser) Statement() {
 
 // n1 :: "\n"+
 func (p *Parser) Nl() {
-	fmt.Println("NEWLINE")
-
 	//ideally just one newline
 	p.Match(NEWLINE)
 
@@ -247,11 +270,10 @@ func (p *Parser) Nl() {
 
 // expression :: term {( "-" | "+" ) term}
 func (p *Parser) Expression() {
-	fmt.Println("EXPRESSION")
-
 	p.Term()
 
 	for p.CheckToken(MINUS) || p.CheckToken(PLUS) {
+		p.emitter.Emit(" " + p.curToken.tokenText + " ")
 		p.NextToken()
 		p.Term()
 	}
@@ -259,10 +281,10 @@ func (p *Parser) Expression() {
 
 // term ::= unary {( "/" | "*" ) unary}
 func (p *Parser) Term() {
-	fmt.Println("TERM")
 	p.Unary()
 
 	for p.CheckToken(SLASH) || p.CheckToken(ASTERISK) {
+		p.emitter.Emit(" " + p.curToken.tokenText + " ")
 		p.NextToken()
 		p.Unary()
 	}
@@ -270,9 +292,8 @@ func (p *Parser) Term() {
 
 // unary ::= {"+" | "-"} primary
 func (p *Parser) Unary() {
-	fmt.Println("UNARY")
-
 	for p.CheckToken(PLUS) || p.CheckToken(MINUS) {
+		p.emitter.Emit(" " + p.curToken.tokenText + " ")
 		p.NextToken()
 	}
 	p.Primary()
@@ -280,15 +301,15 @@ func (p *Parser) Unary() {
 
 // primary ::= number | ident
 func (p *Parser) Primary() {
-	fmt.Println("PRIMARY (" + p.curToken.tokenText + ")")
-
 	if p.CheckToken(NUMBER) {
+		p.emitter.Emit(p.curToken.tokenText)
 		p.NextToken()
 	} else if p.CheckToken(IDENT) {
 		foundVar := false
 		//ensure variable you accessing, exists first
 		for _, vars := range p.variables {
 			if p.curToken.tokenText == vars {
+				p.emitter.Emit(p.curToken.tokenText)
 				p.NextToken()
 				foundVar = true
 				break
@@ -316,6 +337,7 @@ func (p *Parser) Comparison() {
 
 	// there should be at least one operator
 	if p.IsComparisonOperator() {
+		p.emitter.Emit(" " + p.curToken.tokenText + " ")
 		p.NextToken()
 		p.Expression()
 
@@ -326,6 +348,7 @@ func (p *Parser) Comparison() {
 
 	//could be more than one operator
 	for p.IsComparisonOperator() {
+		p.emitter.Emit(" " + p.curToken.tokenText + " ")
 		p.NextToken()
 		p.Expression()
 	}

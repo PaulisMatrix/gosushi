@@ -44,9 +44,17 @@ func StartHere() {
 	//init first character
 	l.NextChar()
 
+	//init emitter
+	e := &Emitter{
+		fullPath: "./output.c",
+		code:     "",
+		header:   "",
+	}
+
 	//init parser
 	p := &Parser{
 		lexer:     l,
+		emitter:   e,
 		curToken:  Token{},
 		peekToken: Token{},
 	}
@@ -56,5 +64,10 @@ func StartHere() {
 
 	//start the parser
 	p.Program()
+
+	//write to equivalent C code
+	e.WriteToFile()
+
+	fmt.Println("Compilation complete!!!")
 
 }
