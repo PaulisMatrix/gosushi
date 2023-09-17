@@ -15,7 +15,7 @@ const (
 	IDENT   TokenKind = "IDENT"
 	STRING  TokenKind = "STRING"
 	//keywords
-	LABLE    TokenKind = "LABEL"
+	LABEL    TokenKind = "LABEL"
 	GOTO     TokenKind = "GOTO"
 	PRINT    TokenKind = "PRINT"
 	INPUT    TokenKind = "INPUT"
@@ -41,7 +41,7 @@ const (
 )
 
 var KeyWordList = []TokenKind{
-	LABLE, GOTO, PRINT, INPUT, LET, IF, THEN, ENDIF, WHILE, REPEAT, ENDWHILE,
+	LABEL, GOTO, PRINT, INPUT, LET, IF, THEN, ENDIF, WHILE, REPEAT, ENDWHILE,
 }
 
 type LexerIface interface {
@@ -63,6 +63,7 @@ type LexerIface interface {
 
 var _ LexerIface = (*Lexer)(nil)
 
+// lexer is used to split the input sentences into small sized tokens to be processed by the parser.
 type Lexer struct {
 	source  string //source or the current string line to the lexer
 	curChar string //current character in the string
@@ -259,7 +260,7 @@ func (l *Lexer) GetToken() Token {
 				l.NextChar()
 			}
 		}
-		text := l.source[startPos:l.curPos]
+		text := l.source[startPos : l.curPos+1]
 		token = Token{
 			tokenText: text,
 			tokenKind: NUMBER,
