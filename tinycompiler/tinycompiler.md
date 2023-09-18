@@ -49,3 +49,11 @@ a. `{}` : means zero or more<br>
 b. `[]` : means zero or one<br>
 c. `+` : means one or more of whatever is to the left<br>
 d. `()` : used for grouping<br>
+
+* TODO
+1. Implement expressions parsing using an AST.
+2. All the primitive, basic data types like int, float, string, arrays, etc. with type checking.
+3. User defined data types like struct, union, enum, typedef.
+4. All boolean operators like AND, OR, XOR, etc.
+5. Add support for functions, functions as first class objects, recursive functions, etc. 
+6. Add support for std library for file/os/string/math/ operations.
