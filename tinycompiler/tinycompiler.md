@@ -51,6 +51,7 @@ c. `+` : means one or more of whatever is to the left<br>
 d. `()` : used for grouping<br>
 
 * TODO
+0. Add tests for each step(lexing, parsing, emitting)
 1. Implement expressions parsing using an AST.
 2. All the primitive, basic data types like int, float, string, arrays, etc. with type checking.
 3. User defined data types like struct, union, enum, typedef.
