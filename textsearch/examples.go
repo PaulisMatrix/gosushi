@@ -1,6 +1,9 @@
 package textsearch
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func ExampleSearch() {
 	invertedIndex := make(Index)
@@ -27,10 +30,23 @@ func ExampleSearch() {
 		URL: "https://wiki.idx.example",
 	}
 
-	invertedIndex.Add([]Document{sampleDoc1})
-	invertedIndex.Add([]Document{sampleDoc2})
-	invertedIndex.Add([]Document{sampleDoc3})
-	fmt.Printf("sample inverted index: %+v\n", invertedIndex)
+	docs := make([]Document, 3)
+	docs[0] = sampleDoc1
+	docs[1] = sampleDoc2
+	docs[2] = sampleDoc3
 
-	// now if I search for anakin, it should return the docs 1 and 2
+	invertedIndex.Add(docs)
+
+	query := "anakin is a good dog!"
+	matchedIDs := invertedIndex.Search(query)
+	if len(matchedIDs) == 0 {
+		fmt.Printf("no docs found matching the query: %s", query)
+		os.Exit(1)
+	}
+
+	for _, id := range matchedIDs {
+		doc := docs[id-1]
+		fmt.Printf("doc ID: %d and doc Text: %s\n", doc.ID, doc.Text)
+	}
+
 }
