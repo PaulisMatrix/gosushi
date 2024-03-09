@@ -1,16 +1,11 @@
 package main
 
 import (
-	"practice/snippets"
-	//"practice/textsearch"
+	"practice/textsearch"
 )
-
-//import "practice/textsearch"
 
 //"practice/tinycompiler"
 
-//"log"
-//"net"
 //pb "practice/grpc/hello_world"
 //"google.golang.org/grpc"
 //aoc "practice/adventofcode/day10"
@@ -62,7 +57,7 @@ func main() {
 	*/
 
 	// tinycompiler.StartHere()
-	// textsearch.TextSearch()
-	snippets.Prims()
+	textsearch.TextSearch()
+	// snippets.Prims()
 
 }
