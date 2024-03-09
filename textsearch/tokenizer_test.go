@@ -27,7 +27,7 @@ func TestTokenizer(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.text, func(t *testing.T) {
+		t.Run("tokenisation tests", func(t *testing.T) {
 			assert.EqualValues(t, testCase.tokens, textsearch.Tokenize(testCase.text))
 		})
 	}

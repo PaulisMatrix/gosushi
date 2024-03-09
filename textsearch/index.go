@@ -38,7 +38,7 @@ func (idx Index) Search(query string) []int {
 			docIDs = ids
 			continue
 		}
-		docIDs = intersection(docIDs, ids)
+		docIDs = Intersection(docIDs, ids)
 	}
 
 	return docIDs
@@ -47,9 +47,9 @@ func (idx Index) Search(query string) []int {
 // using bitmaps to find out the common ids between the two sets
 // length of the docs(in this case) ~7_00_000
 // max integer I can store in a bitmap of length 1 is 31 (index 0 to 31 for a 32 bit integer)
-// so here, I would be needing 7k / 31 len bitmap ~ 226
+// so here, I would be needing 700k / 31 len bitmap ~ 22581 ~ 90KBs
 
-func intersection(seta, setb []int) []int {
+func Intersection(seta, setb []int) []int {
 	intersection := make([]int, 0)
 	// arbitarily taken length
 	bitmap := make([]int, MAX_BITMAP_LEN)
