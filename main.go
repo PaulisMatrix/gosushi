@@ -1,6 +1,13 @@
 package main
 
-import "practice/tinycompiler"
+import (
+	"practice/snippets"
+	//"practice/textsearch"
+)
+
+//import "practice/textsearch"
+
+//"practice/tinycompiler"
 
 //"log"
 //"net"
@@ -17,23 +24,23 @@ import "practice/tinycompiler"
 
 func main() {
 	/*
-			myset1 := snippets.NewSet()
-			myset1.AddMulti([]string{"a", "b", "c", "d"})
+		myset1 := snippets.NewSet()
+		myset1.AddMulti([]string{"a", "b", "c", "d"})
 
-			myset2 := snippets.NewSet()
-			myset2.AddMulti([]string{"e", "f", "g", "d"})
+		myset2 := snippets.NewSet()
+		myset2.AddMulti([]string{"e", "f", "g", "d"})
 
-			inter := myset1.Intersection(myset2)
+		inter := myset1.Intersection(myset2)
 
-			inter.Display()
+		inter.Display()
 
-			union := myset1.Union(myset2)
+		union := myset1.Union(myset2)
 
-			union.Display()
+		union.Display()
 
-			diff := myset1.Difference(myset2)
+		diff := myset1.Difference(myset2)
 
-			diff.Display()
+		diff.Display()
 
 		//aoc.SecondPart()
 		log.Println("Starting the server!")
@@ -54,6 +61,8 @@ func main() {
 		}
 	*/
 
-	tinycompiler.StartHere()
+	// tinycompiler.StartHere()
+	// textsearch.TextSearch()
+	snippets.Prims()
 
 }
