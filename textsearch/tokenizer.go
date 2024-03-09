@@ -14,8 +14,12 @@ func Tokenize(text string) []string {
 // applies the appropriate filters and returns the clean tokens list
 func analyze(text string) []string {
 	// tokenise the text
+	tokens := Tokenize(text)
 	// normalise the text
+	normalisedTokens := NormaliseFilter(tokens)
 	// remove the stopwords
+	cleanedTokens := StopWordsFilter(normalisedTokens)
 	// stemm the text
-	return nil
+	return StemmingFilter(cleanedTokens)
+
 }

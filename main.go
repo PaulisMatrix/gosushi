@@ -57,7 +57,7 @@ func main() {
 	*/
 
 	// tinycompiler.StartHere()
-	textsearch.TextSearch()
+	textsearch.ExampleSearch()
 	// snippets.Prims()
 
 }

@@ -8,14 +8,22 @@ import (
 
 func getStopWords() map[string]struct{} {
 	return map[string]struct{}{
-		"a": {}, "and": {}, "be": {}, "have": {}, "i": {},
-		"in": {}, "of": {}, "that": {}, "the": {}, "to": {},
+		"a": {}, "an": {}, "and": {}, "are": {}, "as": {}, "at": {},
+		"be": {}, "but": {}, "by": {}, "for": {}, "if": {}, "in": {},
+		"into": {}, "is": {}, "it": {}, "no": {}, "not": {}, "of": {},
+		"on": {}, "or": {}, "such": {}, "that": {}, "the": {}, "their": {},
+		"then": {}, "there": {}, "these": {}, "they": {}, "this": {}, "to": {},
+		"was": {}, "will": {}, "with": {}, "i": {}, "have": {}, "s": {},
 	}
 }
 
 func NormaliseFilter(tokens []string) []string {
 	normalisedTokens := make([]string, len(tokens))
 	for i, token := range tokens {
+		// TODO: Remove all single letter words too?
+		// but length of a single character maynot be neccesarily 1
+		// since it might be an unicode character which is multi bytes
+		// hence its len could be > 1
 		normalisedTokens[i] = strings.ToLower(token)
 	}
 	return normalisedTokens
