@@ -20,8 +20,9 @@ func TestIndexAdd(t *testing.T) {
 	index.Add([]textsearch.Document{{ID: 2, Text: "my cat's name is anakin"}})
 	assert.EqualValues(t, []int{}, index.Search("a"))
 	assert.EqualValues(t, 2, index.WordFreq("cat"))
-	assert.EqualValues(t, []int{1, 2}, index.Search("Cat"))
+	assert.EqualValues(t, []int{2}, index.Search("what's my cat name?"))
 	assert.EqualValues(t, 1, index.WordFreq("anakin"))
+	assert.EqualValues(t, 1, index.WordFreq("name"))
 
 	index.Add([]textsearch.Document{{ID: 3, Text: "my cat is a real menace"}})
 	assert.EqualValues(t, 3, index.WordFreq("cat"))
