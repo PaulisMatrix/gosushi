@@ -42,7 +42,7 @@ func TextSearch() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Print("$")
+		fmt.Print("$ ")
 
 		text, err := reader.ReadString('\n')
 		if err != nil {

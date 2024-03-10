@@ -4,19 +4,38 @@ const MAX_BIT_LEN int = 31
 const MAX_BITMAP_LEN int = 22581
 
 // inverted index to map each word to all the document IDs it occurs in
-type Index map[string][]int
+type IndexMap struct {
+	DocFreq     int
+	PostingList []int
+}
+type Index map[string]*IndexMap
 
 func (idx Index) Add(docs []Document) {
 
 	for _, doc := range docs {
 		for _, token := range analyze(doc.Text) {
-			// what if cat is present at two places in the same text
-			// how would you avoid adding the same doc ID twice?
-			curIds := idx[token]
-			if curIds != nil && curIds[len(curIds)-1] == doc.ID {
+			indexMap, ok := idx[token]
+			if !ok {
+				// init Index for each new token
+				idx[token] = &IndexMap{
+					DocFreq:     1,
+					PostingList: []int{doc.ID},
+				}
 				continue
 			}
-			idx[token] = append(curIds, doc.ID)
+
+			// what if cat is present at two places in the same text
+			// how would you avoid adding the same doc ID twice?
+			curIds := indexMap.PostingList
+			if len(curIds) != 0 && curIds[len(curIds)-1] == doc.ID {
+				// increment frequency
+				indexMap.DocFreq++
+				continue
+			}
+
+			// add the new docID and increment the frequency
+			indexMap.PostingList = append(curIds, doc.ID)
+			indexMap.DocFreq++
 		}
 	}
 
@@ -28,20 +47,29 @@ func (idx Index) Search(query string) []int {
 	for _, token := range analyze(query) {
 		// get the docIDs list from inverted index for each token
 		// find the common IDs from all such list
-		ids, ok := idx[token]
+		indexMap, ok := idx[token]
 		if !ok {
 			// token doesn't exist, do we just return or return the found docIDs
 			continue
 		}
 		if len(docIDs) == 0 {
 			// init
-			docIDs = ids
+			docIDs = indexMap.PostingList
 			continue
 		}
-		docIDs = Intersection(docIDs, ids)
+		docIDs = Intersection(docIDs, indexMap.PostingList)
 	}
 
 	return docIDs
+}
+
+func (idx Index) WordFreq(word string) int {
+	// return the word count/freq in the whole document
+	freq, ok := idx[word]
+	if !ok {
+		return 0
+	}
+	return freq.DocFreq
 }
 
 // using bitmaps to find out the common ids between the two sets

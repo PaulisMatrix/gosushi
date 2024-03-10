@@ -25,7 +25,7 @@ func ExampleSearch() {
 		ID:    3,
 		Title: "Anarchism of wikipedia",
 		Text: `Anarchism is a political philosophy and movement that is skeptical of all justifications for authority
-		and seeks to abolish the institutions it claims maintain unnecessary coercion and hierarchy, typically including nation-states, 
+		and seeks to abolish the institutions it claims maintain unnecessary coercion and hierarchy, typically including nation-states,
 		and capitalism. Anarchism advocates for the replacement of the state with stateless societies and voluntary free associations.`,
 		URL: "https://wiki.idx.example",
 	}

@@ -13,17 +13,19 @@ func TestIndexAdd(t *testing.T) {
 	assert.Equal(t, []int{}, index.Search("hello there"))
 	assert.Equal(t, []int{}, index.Search("shazam!!"))
 
-	index.Add([]textsearch.Document{{ID: 1, Text: "A donut on a glass plate. Only the donuts."}})
-	assert.Equal(t, []int{}, index.Search("a"))
-	assert.Equal(t, index.Search("donut"), []int{1})
-	assert.Equal(t, index.Search("DoNuts"), []int{1})
-	assert.Equal(t, index.Search("glass"), []int{1})
+	index.Add([]textsearch.Document{{ID: 1, Text: "A cat ran over my keyboard"}})
+	assert.EqualValues(t, 1, index.WordFreq("cat"))
+	assert.EqualValues(t, []int{1}, index.Search("my cat"))
 
-	index.Add([]textsearch.Document{{ID: 2, Text: "donut is a donut"}})
-	assert.Equal(t, []int{}, index.Search("a"))
-	assert.Equal(t, index.Search("donut"), []int{1, 2})
-	assert.Equal(t, index.Search("DoNuts"), []int{1, 2})
-	assert.Equal(t, index.Search("glass"), []int{1})
+	index.Add([]textsearch.Document{{ID: 2, Text: "my cat's name is anakin"}})
+	assert.EqualValues(t, []int{}, index.Search("a"))
+	assert.EqualValues(t, 2, index.WordFreq("cat"))
+	assert.EqualValues(t, []int{1, 2}, index.Search("Cat"))
+	assert.EqualValues(t, 1, index.WordFreq("anakin"))
+
+	index.Add([]textsearch.Document{{ID: 3, Text: "my cat is a real menace"}})
+	assert.EqualValues(t, 3, index.WordFreq("cat"))
+	assert.EqualValues(t, []int{1, 2, 3}, index.Search("how is my cat?"))
 
 }
 

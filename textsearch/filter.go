@@ -13,7 +13,7 @@ func getStopWords() map[string]struct{} {
 		"into": {}, "is": {}, "it": {}, "no": {}, "not": {}, "of": {},
 		"on": {}, "or": {}, "such": {}, "that": {}, "the": {}, "their": {},
 		"then": {}, "there": {}, "these": {}, "they": {}, "this": {}, "to": {},
-		"was": {}, "will": {}, "with": {}, "i": {}, "have": {}, "s": {},
+		"was": {}, "will": {}, "with": {}, "i": {}, "have": {}, "s": {}, "my": {},
 	}
 }
 

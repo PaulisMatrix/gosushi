@@ -37,4 +37,19 @@ Example text: Anarchism is a political philosophy and movement that is skeptical
 
 3.  Add more boolean queries like OR, NOT, etc.
 
-    
+
+# Further Readings: 
+
+1.  Index Data Structures in ES: 
+
+    [ElasticSearch-BottomUp](https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up) <br>
+    Talk on the same : https://youtu.be/PpX7J-G2PEo
+
+2.  Distributed nature of ES: [ElasticSearch-TopDown](https://www.elastic.co/blog/found-elasticsearch-top-down)
+3.  [Dissecting Lucene](https://kandepet.com/dissecting-lucene-the-index-format/)
+4.  [Lucene-The good parts](https://www.parse.ly/lucene/)
+5.  Talks on lucene:
+
+    [Algorithms & data-structures that power Lucene & ElasticSearch](https://youtu.be/eQ-rXP-D80U?si=YW-geBKcNfLaVjzd) <br>
+    [Adrien Grand, Software Engineer, Elasticsearch](https://youtu.be/T5RmMNDR5XI?si=LWzBt8Mq2z2bVIGl)
+6.  
