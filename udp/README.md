@@ -28,6 +28,24 @@ Your solution will be evaluated based on the following criteria (in this order):
 - Bytes allocated per iteration
 - Number of allocations per iteration
 
+## Analysing the benchmarks
+
+* You can profile the benchmarks using pprof. 
+
+  generate cpu profile : ` go test -benchmem -cpuprofile cpu_profile.out -bench BenchmarkConnections -benchtime=2s`
+
+  generate mem profile : ` go test -benchmem -memprofile mem_profile.out -bench BenchmarkConnections -benchtime=2s`
+
+  analyse the results using pprof tool : `go tool pprof --top cpu_profile.out`, `go tool pprof --top mem_profile.out`
+
+* You can also collect traces which indicate the path of your program execution. 
+  
+  * generate the trace : `go test -benchmem -trace=trace.out -bench BenchmarkConnections -benchtime=2s`
+
+  * visualize the trace : `go tool trace trace.out`
+
+* More here : https://github.com/samonzeweb/profilinggo
+
 ## Results:
 
 1. Running each writer in a different goroutine. Well it might help in reducing the total execution time but def would increase 
