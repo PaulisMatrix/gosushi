@@ -48,8 +48,9 @@ Example text: Anarchism is a political philosophy and movement that is skeptical
 2.  Distributed nature of ES: [ElasticSearch-TopDown](https://www.elastic.co/blog/found-elasticsearch-top-down)
 3.  [Dissecting Lucene](https://kandepet.com/dissecting-lucene-the-index-format/)
 4.  [Lucene-The good parts](https://www.parse.ly/lucene/)
-5.  Talks on lucene:
+5.  [Blog posts](https://blog.mikemccandless.com/2011/02/visualizing-lucenes-segment-merges.html) of lucene main committer.
+6.  Talks on lucene:
 
     [Algorithms & data-structures that power Lucene & ElasticSearch](https://youtu.be/eQ-rXP-D80U?si=YW-geBKcNfLaVjzd) <br>
     [Adrien Grand, Software Engineer, Elasticsearch](https://youtu.be/T5RmMNDR5XI?si=LWzBt8Mq2z2bVIGl)
-6.  
+7.  

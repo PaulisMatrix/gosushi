@@ -8,6 +8,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+// Scaling to 1M websocket connections : https://github.com/eranyanay/1m-go-websockets
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,

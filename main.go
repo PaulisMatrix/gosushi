@@ -1,8 +1,6 @@
 package main
 
-import (
-	"practice/textsearch"
-)
+import "practice/textsearch"
 
 //"practice/tinycompiler"
 
