@@ -28,6 +28,7 @@ Example text: Anarchism is a political philosophy and movement that is skeptical
     Roaring bitmaps are just space efficient bitmaps:<br>
         https://www.vikramoberoi.com/a-primer-on-roaring-bitmaps-what-they-are-and-how-they-work/ <br>
         https://roaringbitmap.org/about/ <br>
+        [roaring bitmaps in golang](https://github.com/RoaringBitmap/roaring)<br>
 
 
 2.  Store the index on disk. Loading and Rebuilding the index everytime on startup takes significant time. 
