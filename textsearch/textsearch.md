@@ -54,4 +54,6 @@ Example text: Anarchism is a political philosophy and movement that is skeptical
 
     [Algorithms & data-structures that power Lucene & ElasticSearch](https://youtu.be/eQ-rXP-D80U?si=YW-geBKcNfLaVjzd) <br>
     [Adrien Grand, Software Engineer, Elasticsearch](https://youtu.be/T5RmMNDR5XI?si=LWzBt8Mq2z2bVIGl)
-7.  
+7.  Jeff Dean's talk on information retrieval: https://videolectures.net/wsdm09_dean_cblirs/
+8.  A simple search engine in python: https://www.alexmolas.com/2024/02/05/a-search-engine-in-80-lines.html
+9.  
