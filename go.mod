@@ -1,10 +1,11 @@
 module practice
 
-go 1.18
+go 1.23.4
 
 require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.5.1
+	github.com/kljensen/snowball v0.9.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/stretchr/testify v1.6.1
 	github.com/twitchtv/twirp v8.1.3+incompatible
@@ -14,11 +15,11 @@ require (
 )
 
 require (
+	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
-	github.com/kljensen/snowball v0.9.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
