@@ -1,6 +1,8 @@
 package main
 
-import "practice/textsearch"
+import "practice/statemachine"
+
+// import "practice/textsearch"
 
 //"practice/tinycompiler"
 
@@ -55,7 +57,8 @@ func main() {
 	*/
 
 	// tinycompiler.StartHere()
-	textsearch.TextSearch()
+	// textsearch.TextSearch()
 	// snippets.Prims()
+	statemachine.RunFSM()
 
 }
